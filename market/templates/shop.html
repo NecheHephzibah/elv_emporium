@@ -1,47 +1,110 @@
 {% extends 'base.html' %}
 {% block title %}
-Market Place
+    Marketplace - ELV Emporium
 {% endblock %}
 {% block content %}
-
-<div class="row" style="margin-top:20px; margin-left:10px">
-   <div class="col-8">
-       <h2>Available items on the Market</h2>
-       <p>Click on one of the items to start buying</p>
-       <br>
-      <table class="table table-hover table-dark">
-         <thead>
-            <tr>
-               <!-- Your Columns HERE -->
-               <th scope="col">ID</th>
-               <th scope="col">Name</th>
-               <th scope="col">Category</th>
-               <th scope="col">Price</th>
-               <th scope="col">Options</th>
-            </tr>
-         </thead>
-         <tbody>
-            <!-- Your rows inside the table HERE: -->
-            {% for item in items %}
-            {% include 'includes/items_modals.html' %}
-            <tr>
-               <td>{{ item.id }}</td>
-               <td>{{ item.name }}</td>
-               <td>{{ item.category }}</td>
-               <td>N{{ item.price }}</td>
-               <td>
-                  <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#exampleModal-MoreInfo-{{ item.id }}">More Info</button>
-                  <button class="btn btn-outline btn-success" data-toggle="modal" data-target="#exampleModal-PurchaseConfirm-{{ item.id }}">Add to Cart</button>
-               </td>
-            </tr>
-            {% endfor %}
-         </tbody>
-      </table>
-   </div>
-   <div class="col-4">
-        <h2>Owned Items</h2>
-        <p>Click on sell item to put an item back on the Market</p>
-        <br>
-   </div>
+<style>
+    body {
+        background-color: #f0f4f8;
+        font-family: 'Roboto', sans-serif;
+    }
+    .marketplace-container {
+        padding: 40px 20px;
+    }
+    .card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+    .card-header {
+        background-color: #00B5AD;
+        color: white;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        padding: 20px;
+    }
+    .card-body {
+        padding: 20px;
+    }
+    .table {
+        color: #333;
+    }
+    .table thead th {
+        border-top: none;
+        border-bottom: 2px solid #00B5AD;
+    }
+    .btn-info, .btn-success {
+        border-radius: 30px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+    .btn-info {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
+    .btn-success {
+        background-color: #00B5AD;
+        border-color: #00B5AD;
+    }
+    .btn-info:hover, .btn-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>
+<div class="marketplace-container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0">Available Items on the Market</h2>
+                </div>
+                <div class="card-body">
+                    <p class="mb-4">Click on one of the items to start buying</p>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in items %}
+                                {% include 'includes/items_modals.html' %}
+                                <tr>
+                                    <td>{{ item.id }}</td>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.category }}</td>
+                                    <td>N{{ item.price }}</td>
+                                    <td>
+                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-MoreInfo-{{ item.id }}">More Info</button>
+                                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal-PurchaseConfirm-{{ item.id }}">Add to Cart</button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0">Owned Items</h2>
+                </div>
+                <div class="card-body">
+                    <p class="mb-4">Click on sell item to put an item back on the Market</p>
+                    <!-- Add your owned items content here -->
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

@@ -11,6 +11,21 @@ from flask_login import login_user, logout_user, login_required, current_user
 def home_page():
     return render_template('home.html')
 
+import os
+from flask import send_file
+
+@app.route('/get_image/<filename>')
+def get_image(filename):
+    return send_file(os.path.join(app.root_path, 'static', 'images', filename), mimetype='image/jpeg')
+
+
+from flask import send_from_directory
+
+
+@app.route('/test_image')
+def test_image():
+    return send_from_directory('../static/images', 'automation-control-system-specification-design-installation.jpg')
+
 @app.route('/shop', methods=['GET', 'POST'])
 @login_required
 def shop_page():
