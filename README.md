@@ -100,3 +100,4 @@ This project is licensed under the MIT License. See the [LICENSE](https://mit-li
 
 ### Screenshot of ELV Emporium
 
+![Screenshot 2024-09-15 at 03-49-16 ELV Emporium](https://github.com/user-attachments/assets/2dbb9248-9c2a-4bad-9948-155120a15acd)
