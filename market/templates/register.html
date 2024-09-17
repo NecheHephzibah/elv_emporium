@@ -1,49 +1,65 @@
 {% extends 'base.html' %}
 {% block title %}
+    <!-- Page title -->
     Sign Up - ELV Emporium
 {% endblock %}
 {% block content %}
 <style>
+    /* Styling for the body */
     body {
         background-color: #f0f4f8;
         font-family: 'Roboto', sans-serif;
     }
+
+    /* Centering the sign-up container */
     .signup-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: calc(100vh - 56px);
+        min-height: calc(100vh - 56px); /* Adjusting height for navbar */
         padding: 20px;
     }
+
+    /* Styling for the sign-up card */
     .signup-card {
         background: white;
         padding: 40px;
         border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Shadow for the card */
         width: 100%;
-        max-width: 400px;
+        max-width: 400px; /* Max width for responsiveness */
     }
+
+    /* Styling for the sign-up header */
     .signup-card h1 {
         color: #333;
         font-size: 28px;
         margin-bottom: 30px;
         text-align: center;
     }
+
+    /* Form group margin */
     .form-group {
         margin-bottom: 20px;
     }
+
+    /* Styling form controls (inputs) */
     .form-control {
         border: none;
-        border-bottom: 2px solid #e0e0e0;
+        border-bottom: 2px solid #e0e0e0; /* Underlined input style */
         padding: 10px 0;
         width: 100%;
         font-size: 16px;
-        transition: border-color 0.3s;
+        transition: border-color 0.3s; /* Smooth transition on focus */
     }
+
+    /* Border color changes on focus */
     .form-control:focus {
         outline: none;
-        border-color: #00B5AD;
+        border-color: #00B5AD; /* Custom teal color on focus */
     }
+
+    /* Styling the primary button */
     .btn-primary {
         background-color: #00B5AD;
         border: none;
@@ -52,21 +68,29 @@
         font-size: 18px;
         font-weight: 600;
         width: 100%;
-        transition: background-color 0.3s;
+        transition: background-color 0.3s; /* Smooth hover transition */
     }
+
+    /* Changing button color on hover */
     .btn-primary:hover {
-        background-color: #009c94;
+        background-color: #009c94; /* Darker shade of teal on hover */
     }
+
+    /* Styling for the login link */
     .login-link {
         text-align: center;
         margin-top: 20px;
         font-size: 14px;
     }
+
+    /* Styling the login link anchor */
     .login-link a {
         color: #00B5AD;
         text-decoration: none;
         font-weight: 600;
     }
+
+    /* Styling the logo */
     .logo {
         width: 80px;
         height: 80px;
@@ -74,26 +98,42 @@
         display: block;
     }
 </style>
+
 <div class="signup-container">
     <div class="signup-card">
+        <!-- Uncomment to display the ELV Emporium logo -->
         <!-- <img src="{{ url_for('static', filename='images/elv_logo.png') }}" alt="ELV Emporium Logo" class="logo"> -->
+        
+        <!-- Sign-up form header -->
         <h1>Create Account</h1>
         <form method="POST">
-            {{ form.hidden_tag() }}
+            {{ form.hidden_tag() }} <!-- CSRF hidden token -->
+
+            <!-- Username input field -->
             <div class="form-group">
                 {{ form.username(class="form-control", placeholder="Username") }}
             </div>
+
+            <!-- Email address input field -->
             <div class="form-group">
                 {{ form.email_address(class="form-control", placeholder="Email Address") }}
             </div>
+
+            <!-- Password input field -->
             <div class="form-group">
                 {{ form.password1(class="form-control", placeholder="Password") }}
             </div>
+
+            <!-- Confirm password input field -->
             <div class="form-group">
                 {{ form.password2(class="form-control", placeholder="Confirm Password") }}
             </div>
+
+            <!-- Submit button -->
             {{ form.submit(class="btn btn-primary") }}
         </form>
+
+        <!-- Login link for existing users -->
         <div class="login-link">
             Already have an account? <a href="{{ url_for('login_page') }}">Log in</a>
         </div>

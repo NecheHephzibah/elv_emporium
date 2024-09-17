@@ -1,59 +1,75 @@
 # ELV Emporium
-ELV Emporium is a web app that’s a one-stop shop for ELV gadgets with optional installation booking within a week. 
+### Introduction
 
-## Team
-Chinecherem Onovo is the only contributor at this time. 
+ELV Emporium is a web application designed to be a one-stop shop for Extra-Low Voltage (ELV) gadgets. This platform not only provides a range of ELV products but also offers an optional installation booking service. The project aims to address the difficulty of sourcing quality ELV gadgets in Nigeria, providing both urban and rural areas with easy access to essential technology.
 
-## Technologies
-Languages: HTML, CSS, JavaScript, Python
+    Deployed Site: [ELV Emporium](https://hephzibah.pythonanywhere.com)
+    Final Project Blog Article: [Read More](https://www.linkedin.com/pulse/spicing-up-elv-emporium-flavor-challenges-encountered-onovo-s1pie/)
+    Author LinkedIn: [Chinecherem Onovo](https://www.linkedin.com/in/chinecherem-onovo-349427250/)
 
-Framework and Libraries: Flask, SQLite, Bootstrap
+### Installation
 
-## Resoures 
-Flask documentation, Bootstrap documentation
+To run ELV Emporium locally, follow these steps:
 
-## Technology Comparisons
-1. Flask vs. Django: Flask was chosen for its simplicity and flexibility, which is ideal for a project with a tight deadline. Django’s extensive features were not necessary for this project and could add unnecessary complexity.
-2. Bootstrap vs. Material-UI: Bootstrap was chosen for its simplicity and ease of integration, allowing rapid development of a responsive and clean design without extensive customization. Material-UI is heavier than Bootstrap and may require more learning and customization to match my design requirements.
+Clone the Repository:
 
-## Challenge
+`git clone https://github.com/yourusername/elv_emporium.git`
 
-ELV Emporium intends to solve the problem of limited access to Extra-Low Voltage (ELV) gadgets in Nigeria. Many regions, even major urban centers, find it hard to get reliable and high-quality ELV products such as security systems, home automation devices, and networking equipment. ELV Emporium provides a one-stop online market that makes these products and installations more accessible to people, offering convenience and a reliable source for purchasing essential technology.
-ELV Emporium’s target users are homeowners and businesses
-The project is highly relevant to Nigeria, where ELV gadgets are not easily accessible in many regions including major cities. This site will bridge this gap by providing an online shopping platform that serves both urban and rural areas, potentially transforming the availability of advanced technology in Nigeria. 
+Navigate to the Project Directory:
 
-## Risks
-Technical Risk: 
-This can be in integrating third-party services (APIs), and one of the ways I could safeguard this is by utilizing detailed documentation to address integration challenges. 
-Non-Technical Risk: this would be me adding features beyond the initial scope which would lead to delays and increased complexity, impacting project deadlines. The strategy I’d use to curb this would be to define and document this project's requirements and scope from the beginning, focus on delivering the core functionality first, and consider additional features in future phases.
+`cd elv_emporium`
 
-## Infrastructure
-**Deployment Strategy:** The local environment would be used for initial development and testing. Then for production deployment, except otherwise stated, Netlify would be used to automate the deployment process.
-Populating the App with Data: product listings, descriptions, and images will be used as initial data. An admin interface would be created to manage and update product data dynamically. API would be integrated to fetch and update data as needed.
+Create and Activate a Virtual Environment:
 
-**Testing Tools:** Manual Testing 
+`python -m venv venv`
+`source venv/bin/activate ` # On Windows use `venv\Scripts\activate`
 
-## Existing Solution
-**Jumia**
-Jumia is a leading e-commerce platform in Africa that offers a variety of products, including electronics and home appliances.
+Install Dependencies:
 
-**Similarities** 
-Both platforms operate in the e-commerce space and provide technology products to consumers. Both offer online purchasing options.
+`pip install -r requirements.txt`
 
-**Differences** 
-ELV Emporium: Specializes in Extra-Low Voltage (ELV) gadgets and provides additional services such as optional installation, focusing on a niche market. 
-Jumia: Offers a broad range of products beyond ELV gadgets, including clothing and household items, and does not specifically focus on installation services for electronics.
+Set Up the Database:
 
-**Best Buy**
-Best Buy is a major electronics retailer that provides a wide range of consumer electronics, including ELV gadgets, with various in-store and online services.
+`flask db upgrade`
 
-**Similarities** 
-Both platforms offer a variety of electronic products and focus on customer convenience. Both provide online shopping options and have a wide range of product categories.
+Run the Application:
 
-**Differences**
-ELV Emporium: Focuses specifically on ELV gadgets and integrates optional installation services, catering to a niche audience in Nigeria.
-Best Buy: Operates primarily in North America with a broader product range and no specific focus on ELV gadgets or localized installation services.
+`flask run`
 
+### Usage
 
+Once the application is running, you can:
 
+1. Browse and search for ELV gadgets.
+2. Book installation services through the website.
+3. Access the user account features for registration and login.
 
+### Contributing
+
+ELV Emporium is currently maintained by Chinecherem Onovo. Contributions are welcome! To contribute:
+
+1. Fork the Repository
+2. Create a New Branch:
+
+`git checkout -b feature-branch`
+
+3. Commit Your Changes:
+
+`git commit -am 'Add new feature'`
+
+4. Push to the Branch:
+
+`git push origin feature-branch`
+
+5. Create a Pull Request
+
+### Related Projects
+
+    **Jumia:** A leading e-commerce platform in Africa that offers a wide range of products, including electronics and home appliances.
+    **Best Buy:** A major electronics retailer providing a broad range of consumer electronics, including ELV gadgets.
+
+### Licensing
+
+This project is licensed under the MIT License. See the [LICENSE](https://mit-license.org/) file for details.
+
+Screenshot of ELV Emporium

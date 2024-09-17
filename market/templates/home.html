@@ -1,34 +1,45 @@
 {% extends 'base.html' %}
+{# This template extends the base HTML layout, inheriting common elements like header, footer, and styles #}
 
 {% block title %}
     ELV Emporium
+{# This block sets the page title to "ELV Emporium" #}
 {% endblock %}
 
 {% block content %}
+{# Content block where the main body of the page is placed. All custom content for this page goes here #}
+
 <style>
+    /* Styling the body background, text color, and font family */
     body {
         background-color: #f0f0f0;
         color: #333;
         font-family: 'Roboto', sans-serif;
     }
+
+    /* Neumorphic design for cards and elements */
     .neumorphic {
         border-radius: 50px;
         background: #f0f0f0;
-        box-shadow: 20px 20px 60px #cccccc,
-                    -20px -20px 60px #ffffff;
+        box-shadow: 20px 20px 60px #cccccc, -20px -20px 60px #ffffff;
         color: #333;
         transition: all 0.3s ease;
     }
+
+    /* Hover effect for neumorphic elements */
     .neumorphic:hover {
         transform: translateY(-5px);
     }
+
+    /* Inset version of neumorphic design */
     .neumorphic-inset {
         border-radius: 50px;
         background: #f0f0f0;
-        box-shadow: inset 20px 20px 60px #cccccc,
-                    inset -20px -20px 60px #ffffff;
+        box-shadow: inset 20px 20px 60px #cccccc, inset -20px -20px 60px #ffffff;
         color: #333;
     }
+
+    /* Custom button with neumorphic design */
     .btn-neumorphic {
         border: none;
         border-radius: 30px;
@@ -38,19 +49,24 @@
         padding: 12px 24px;
         font-weight: 600;
     }
+
+    /* Hover effect for the custom button */
     .btn-neumorphic:hover {
         background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-        box-shadow: inset 5px 5px 10px #151515,
-                    inset -5px -5px 10px #2f2f2f;
+        box-shadow: inset 5px 5px 10px #151515, inset -5px -5px 10px #2f2f2f;
         color: #e0e0e0;
         transform: translateY(-2px);
     }
+
+    /* Section title styling */
     .section-title {
         font-size: 2.5rem;
         font-weight: 700;
         margin-bottom: 2rem;
         color: #2a2a2a;
     }
+
+    /* Styling for feature icons */
     .feature-icon {
         font-size: 2rem;
         margin-bottom: 1rem;
@@ -59,64 +75,95 @@
 </style>
 
 <div class="container-fluid py-5">
+    {# Main container with padding on the top and bottom #}
     <div class="row justify-content-center">
+        {# Centered row for the welcome section #}
         <div class="col-md-8 text-center">
+            {# Central column with text alignment #}
             <div class="neumorphic p-5 mb-5">
+                {# Neumorphic effect for the welcome message card #}
                 <i class="fas fa-plug fa-3x mb-4" style="color: #00B5AD;"></i>
+                {# Plug icon with custom size and color #}
                 <h1 class="display-4 fw-bold mb-4">Welcome to ELV Emporium</h1>
-                <p class="lead mb-4">Explore the best in Extra-Low Voltage gadgets and book installations with ease. We offer a wide range of products tailored to meet your needs.</p>
+                {# Main welcome heading #}
+                <p class="lead mb-4">
+                    Explore the best in Extra-Low Voltage gadgets and book installations with ease. 
+                    We offer a wide range of products tailored to meet your needs.
+                </p>
+                {# Brief description paragraph #}
                 <a href="{{ url_for('shop_page') }}" class="btn btn-primary btn-lg btn-neumorphic px-5 py-3">
                     <i class="fas fa-shopping-cart me-2"></i>Explore Products
+                    {# Button linking to the shop page with a shopping cart icon #}
                 </a>
             </div>
         </div>
     </div>
 
     <div class="row justify-content-center mt-5">
+        {# Row for the "Quality & Innovation" section #}
         <div class="col-md-8">
             <div class="neumorphic-inset p-5">
+                {# Neumorphic inset style for this section #}
                 <h2 class="section-title text-center mb-4">Quality & Innovation</h2>
+                {# Section title for "Quality & Innovation" #}
                 <p class="lead text-center">
-                    Finding quality Extra-Low Voltage gadgets can be challenging. Discover gadgets designed to make your life easier and safer.
+                    Finding quality Extra-Low Voltage gadgets can be challenging. 
+                    Discover gadgets designed to make your life easier and safer.
                 </p>
+                {# Brief paragraph explaining the product quality #}
             </div>
         </div>
     </div>
 
     <div class="row justify-content-center mt-5">
+        {# Row for the features section #}
         <div class="col-md-4 mb-4">
             <div class="neumorphic p-4 h-100">
+                {# Neumorphic card for the first feature #}
                 <i class="fas fa-tools feature-icon" style="color: #00B5AD;"></i>
+                {# Tools icon for "Expert Installation" feature #}
                 <h3 class="h5 mb-3">Expert Installation</h3>
+                {# Feature title #}
                 <p>Book a professional installation for your purchases directly through our platform.</p>
+                {# Feature description #}
             </div>
         </div>
         <div class="col-md-4 mb-4">
             <div class="neumorphic p-4 h-100">
+                {# Neumorphic card for the second feature #}
                 <i class="fas fa-headset feature-icon" style="color: #00B5AD;"></i>
+                {# Headset icon for "Customer Support" feature #}
                 <h3 class="h5 mb-3">Customer Support</h3>
+                {# Feature title #}
                 <p>Our team is here to assist you with any inquiries or issues you may have.</p>
+                {# Feature description #}
             </div>
         </div>
     </div>
 
     <div class="row justify-content-center mt-5">
+        {# Row for the "Why Choose ELV Emporium?" section #}
         <div class="col-md-8">
             <div class="neumorphic p-5">
                 <h2 class="section-title text-center mb-4">Why Choose ELV Emporium?</h2>
+                {# Section title for benefits #}
                 <div class="row text-center mt-5">
+                    {# Icons and descriptions for various benefits #}
                     <div class="col-md-4">
                         <i class="fas fa-shipping-fast fa-3x mb-3" style="color: #00B5AD;"></i>
+                        {# Shipping icon #}
                         <h5>Fast Shipping</h5>
                         <p>Get your gadgets delivered to your doorstep quickly and securely.</p>
                     </div>
                     <div class="col-md-4">
                         <i class="fas fa-tools fa-3x mb-3" style="color: #00B5AD"></i>
+                        {# Tools icon #}
                         <h5>Professional Installation</h5>
                         <p>Ensure your gadgets are installed correctly with our certified professionals.</p>
                     </div>
                     <div class="col-md-4">
                         <i class="fas fa-headset fa-3x mb-3" style="color: #00B5AD"></i>
+                        {# Headset icon #}
                         <h5>24/7 Customer Support</h5>
                         <p>We're here to help you, anytime, anywhere.</p>
                     </div>
@@ -126,8 +173,13 @@
     </div>
 
     <div class="row justify-content-center mt-5">
+        {# Final call-to-action section #}
         <div class="col-md-8 text-center">
             <i class="fas fa-globe-africa fa-3x mb-4" style="color: #00B5AD;"></i>
+            {# Globe icon for the global transformation message #}
+            <p class="lead" style="color: #4a4a4a;">
+               
+
             <p class="lead" style="color: #4a4a4a;">Join us in transforming the availability of advanced technology across Nigeria</p>
             <a href="{{ url_for('shop_page') }}" class="btn btn-outline-primary btn-lg btn-neumorphic px-5 py-3 mt-3">
                 <i class="fas fa-shopping-basket me-2"></i>Start Shopping Now

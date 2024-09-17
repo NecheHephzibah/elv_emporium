@@ -1,50 +1,66 @@
 {% extends 'base.html' %}
 {% block title %}
+    <!-- Page title -->
     Login - ELV Emporium
 {% endblock %}
 
 {% block content %}
 <style>
+    /* Setting background color and font family */
     body {
         background-color: #f0f4f8;
         font-family: 'Roboto', sans-serif;
     }
+
+    /* Centering the login container vertically and horizontally */
     .login-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: calc(100vh - 56px); /* Adjust this value based on your navbar height */
+        min-height: calc(100vh - 56px); /* Adjusting height to account for navbar */
         padding: 20px;
     }
+
+    /* Styling the login card */
     .login-card {
         background: white;
         padding: 40px;
         border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Adding subtle shadow */
         width: 100%;
-        max-width: 400px;
+        max-width: 400px; /* Maximum width for the card */
     }
+
+    /* Styling the header inside the login card */
     .login-card h1 {
         color: #333;
         font-size: 28px;
         margin-bottom: 30px;
         text-align: center;
     }
+
+    /* Form group margin */
     .form-group {
         margin-bottom: 20px;
     }
+
+    /* Styling form controls (inputs) */
     .form-control {
         border: none;
-        border-bottom: 2px solid #e0e0e0;
+        border-bottom: 2px solid #e0e0e0; /* Bottom border for inputs */
         padding: 10px 0;
         width: 100%;
         font-size: 16px;
-        transition: border-color 0.3s;
+        transition: border-color 0.3s; /* Smooth transition on focus */
     }
+
+    /* Change border color when form input is focused */
     .form-control:focus {
         outline: none;
-        border-color: #00B5AD;
+        border-color: #00B5AD; /* Custom teal color for focus */
     }
+
+    /* Styling the primary button */
     .btn-primary {
         background-color: #00B5AD;
         border: none;
@@ -53,21 +69,29 @@
         font-size: 18px;
         font-weight: 600;
         width: 100%;
-        transition: background-color 0.3s;
+        transition: background-color 0.3s; /* Smooth transition on hover */
     }
+
+    /* Primary button hover effect */
     .btn-primary:hover {
-        background-color: #00B5AD;
+        background-color: #00B5AD; /* Slightly darker teal on hover */
     }
+
+    /* Styling the sign-up link */
     .signup-link {
         text-align: center;
         margin-top: 20px;
         font-size: 14px;
     }
+
+    /* Styling for the sign-up link anchor */
     .signup-link a {
         color: #00B5AD;
         text-decoration: none;
         font-weight: 600;
     }
+
+    /* Styling the logo */
     .logo {
         width: 80px;
         height: 80px;
@@ -78,19 +102,24 @@
 
 <div class="login-container">
     <div class="login-card">
+        <!-- Uncomment the following line to display the ELV Emporium logo -->
         <!-- <img src="{{ url_for('static', filename='images/elv_logo.png') }}" alt="ELV Emporium Logo" class="logo"> -->
         <h1>Welcome Back</h1>
         <form method="POST">
             {{ form.hidden_tag() }}
             <div class="form-group">
+                <!-- Username input field -->
                 {{ form.username(class="form-control", placeholder="Username") }}
             </div>
             <div class="form-group">
+                <!-- Password input field -->
                 {{ form.password(class="form-control", placeholder="Password") }}
             </div>
+            <!-- Submit button -->
             {{ form.submit(class="btn btn-primary") }}
         </form>
         <div class="signup-link" style="color: #333;">
+            <!-- Sign-up link -->
             Don't have an account? <a href="{{ url_for('register_page') }}">Sign up</a>
         </div>
     </div>

@@ -1,3 +1,4 @@
+# Import necessary modules and components
 from market import app
 from flask import render_template, redirect, url_for, flash, request, jsonify, session
 from market.models import Item, User, CartItem
@@ -8,14 +9,16 @@ from paystackapi.transaction import Transaction
 from paystackapi.paystack import Paystack
 import secrets
 
-# Assuming you've set up your Paystack API keys in __init__.py
+# Initialize Paystack API (assuming API keys are set in __init__.py)
 paystack = Paystack()
 
+# Home page route
 @app.route('/')
 @app.route('/home')
 def home_page():
     return render_template('home.html')
 
+# Shop page route (requires login)
 @app.route('/shop', methods=['GET', 'POST'])
 @login_required
 def shop_page():
@@ -23,6 +26,7 @@ def shop_page():
     owned_items = Item.query.filter_by(owner=current_user.id)
     return render_template('shop.html', items=items, owned_items=owned_items)
 
+# Add item to cart route
 @app.route('/add_to_cart/<int:item_id>', methods=['POST'])
 @login_required
 def add_to_cart(item_id):
@@ -36,6 +40,7 @@ def add_to_cart(item_id):
         flash(f"{item.name} has been added to your cart!", category="success")
     return redirect(url_for('shop_page'))
 
+# Checkout page route
 @app.route('/checkout', methods=['GET'])
 @login_required
 def checkout():
@@ -49,6 +54,7 @@ def checkout():
         total = current_user.cart_total()
     return render_template('checkout.html', items=items, total=total)
 
+# Initiate payment route
 @app.route('/initiate_payment', methods=['POST'])
 @login_required
 def initiate_payment():
@@ -62,6 +68,7 @@ def initiate_payment():
     reference = secrets.token_hex(16)  # Generate a unique reference
     
     try:
+        # Initialize Paystack transaction
         response = paystack.transaction.initialize(
             reference=reference,
             amount=total_amount,
@@ -80,6 +87,7 @@ def initiate_payment():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
+# Payment callback route
 @app.route('/payment_callback')
 @login_required
 def payment_callback():
@@ -90,16 +98,17 @@ def payment_callback():
         return redirect(url_for('shop_page'))
 
     try:
+        # Verify Paystack transaction
         response = paystack.transaction.verify(reference=reference)
         if response['status'] and response['data']['status'] == 'success':
             if item_id:
-                # Single item purchase
+                # Process single item purchase
                 item = Item.query.get_or_404(item_id)
                 item.owner = current_user.id
                 db.session.add(item)
                 flash(f"Payment successful. You have purchased {item.name}!", category='success')
             else:
-                # Cart purchase
+                # Process cart purchase
                 cart_items = current_user.cart_items()
                 for item in cart_items:
                     item.owner = current_user.id
@@ -118,6 +127,7 @@ def payment_callback():
 
     return redirect(url_for('shop_page'))
 
+# User registration route
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
     form = RegisterForm()
@@ -135,6 +145,7 @@ def register_page():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
     return render_template('register.html', form=form)
 
+# User login route
 @app.route('/login', methods=['GET', 'POST'])
 def login_page():
     form = LoginForm()
@@ -150,6 +161,7 @@ def login_page():
             flash('Incorrect Username or password! Please try again', category='danger')
     return render_template('login.html', form=form)
 
+# User logout route
 @app.route('/logout')
 def logout_page():
     logout_user()

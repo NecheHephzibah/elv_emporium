@@ -1,22 +1,30 @@
 {% extends 'base.html' %}
 {% block title %}
+    <!-- Page title -->
     Marketplace - ELV Emporium
 {% endblock %}
 {% block content %}
 <style>
+    /* Styling for the body */
     body {
         background-color: #f0f4f8;
         font-family: 'Roboto', sans-serif;
     }
+
+    /* Container padding for the marketplace section */
     .marketplace-container {
         padding: 40px 20px;
     }
+
+    /* Styling for cards */
     .card {
         background: white;
         border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        margin-bottom: 30px; /* Space between cards */
     }
+
+    /* Header styling for cards */
     .card-header {
         background-color: #00B5AD;
         color: white;
@@ -24,39 +32,57 @@
         border-top-right-radius: 20px;
         padding: 20px;
     }
+
+    /* Body padding for cards */
     .card-body {
         padding: 20px;
     }
+
+    /* Table styling */
     .table {
         color: #333;
     }
+
+    /* Table header styling */
     .table thead th {
         border-top: none;
-        border-bottom: 2px solid #00B5AD;
+        border-bottom: 2px solid #00B5AD; /* Bottom border for header */
     }
+
+    /* General button styling */
     .btn-info, .btn-success, .btn-primary {
         border-radius: 30px;
         padding: 8px 16px;
         font-size: 14px;
         font-weight: 600;
-        transition: all 0.3s;
+        transition: all 0.3s; /* Smooth transition for hover effect */
     }
+
+    /* Info button styling */
     .btn-info {
         background-color: #17a2b8;
         border-color: #17a2b8;
     }
+
+    /* Success button styling */
     .btn-success {
         background-color: #00B5AD;
         border-color: #00B5AD;
     }
+
+    /* Primary button styling */
     .btn-primary {
         background-color: #007bff;
         border-color: #007bff;
     }
+
+    /* Hover effect for buttons */
     .btn-info:hover, .btn-success:hover, .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px); /* Slight lift effect */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow on hover */
     }
+
+    /* Styling for cart summary section */
     .cart-summary {
         background-color: #e9ecef;
         border-radius: 10px;
@@ -64,14 +90,18 @@
         margin-top: 20px;
     }
 </style>
+
 <div class="marketplace-container">
     <div class="row">
+        <!-- Main marketplace section -->
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
+                    <!-- Header for available items section -->
                     <h2 class="mb-0">Available Items on the Market</h2>
                 </div>
                 <div class="card-body">
+                    <!-- Instructions for buying or adding items to cart -->
                     <p class="mb-4">Click on Buy to purchase an item directly or Add to Cart to add it to your cart</p>
                     <div class="table-responsive">
                         <table class="table table-hover">
@@ -85,6 +115,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- Loop through items and display them -->
                                 {% for item in items %}
                                 <tr>
                                     <td>{{ item.id }}</td>
@@ -92,11 +123,13 @@
                                     <td>{{ item.category }}</td>
                                     <td>₦{{ item.price }}</td>
                                     <td>
+                                        <!-- Form for buying an item -->
                                         <form action="{{ url_for('checkout', item_id=item.id) }}" method="GET" style="display: inline;">
                                             <button type="submit" class="btn btn-primary btn-sm">Buy</button>
                                         </form>
+                                        <!-- Form for adding an item to the cart -->
                                         <form action="{{ url_for('add_to_cart', item_id=item.id) }}" method="POST" style="display: inline;">
-                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"> <!-- CSRF token for security -->
                                             <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
                                         </form>
                                     </td>
@@ -108,14 +141,19 @@
                 </div>
             </div>
         </div>
+
+        <!-- Sidebar section for cart and owned items -->
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">
+                    <!-- Header for cart section -->
                     <h2 class="mb-0">Your Cart</h2>
                 </div>
                 <div class="card-body">
+                    <!-- Instructions and items in the cart -->
                     <p class="mb-4">Items in your cart:</p>
                     <ul class="list-group">
+                        <!-- Loop through cart items -->
                         {% for item in current_user.cart_items() %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             {{ item.name }}
@@ -123,19 +161,25 @@
                         </li>
                         {% endfor %}
                     </ul>
+                    <!-- Cart summary and checkout button -->
                     <div class="cart-summary mt-3">
                         <strong>Total: ₦{{ current_user.cart_total() }}</strong>
                     </div>
                     <a href="{{ url_for('checkout') }}" class="btn btn-primary btn-block mt-3">Proceed to Checkout</a>
                 </div>
             </div>
+
+            <!-- Section for owned items -->
             <div class="card mt-4">
                 <div class="card-header">
+                    <!-- Header for owned items section -->
                     <h2 class="mb-0">Owned Items</h2>
                 </div>
                 <div class="card-body">
+                    <!-- Instructions and items owned by the user -->
                     <p class="mb-4">Your purchased items:</p>
                     <ul class="list-group">
+                        <!-- Loop through owned items -->
                         {% for item in owned_items %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             {{ item.name }}
