@@ -3,9 +3,11 @@
 
 ELV Emporium is a web application designed to be a one-stop shop for Extra-Low Voltage (ELV) gadgets. This platform not only provides a range of ELV products but also offers an optional installation booking service. The project aims to address the difficulty of sourcing quality ELV gadgets in Nigeria, providing both urban and rural areas with easy access to essential technology.
 
-    Deployed Site: [ELV Emporium](https://hephzibah.pythonanywhere.com)
-    Final Project Blog Article: [Read More](https://www.linkedin.com/pulse/spicing-up-elv-emporium-flavor-challenges-encountered-onovo-s1pie/)
-    Author LinkedIn: [Chinecherem Onovo](https://www.linkedin.com/in/chinecherem-onovo-349427250/)
+Deployed Site: [ELV Emporium](https://hephzibah.pythonanywhere.com)
+
+Final Project Blog Article: [Read More](https://www.linkedin.com/pulse/spicing-up-elv-emporium-flavor-challenges-encountered-onovo-s1pie/)
+
+Author LinkedIn: [Chinecherem Onovo](https://www.linkedin.com/in/chinecherem-onovo-349427250/)
 
 ### Installation
 
@@ -65,8 +67,8 @@ ELV Emporium is currently maintained by Chinecherem Onovo. Contributions are wel
 
 ### Related Projects
 
-    **Jumia:** A leading e-commerce platform in Africa that offers a wide range of products, including electronics and home appliances.
-    **Best Buy:** A major electronics retailer providing a broad range of consumer electronics, including ELV gadgets.
+**Jumia:** A leading e-commerce platform in Africa that offers a wide range of products, including electronics and home appliances.
+**Best Buy:** A major electronics retailer providing a broad range of consumer electronics, including ELV gadgets.
 
 ### Licensing
 
