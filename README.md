@@ -74,5 +74,5 @@ ELV Emporium is currently maintained by Chinecherem Onovo. Contributions are wel
 
 This project is licensed under the MIT License. See the [LICENSE](https://mit-license.org/) file for details.
 
-**Screenshot of ELV Emporium**
-![Screenshot 2024-09-15 at 03-49-16 ELV Emporium](https://github.com/user-attachments/assets/f066e51d-7bcd-4b97-a14d-db7f85263000)
+### Screenshot of ELV Emporium
+
