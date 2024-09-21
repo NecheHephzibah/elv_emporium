@@ -8,6 +8,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from paystackapi.transaction import Transaction
 from paystackapi.paystack import Paystack
 import secrets
+import uuid
 
 # Initialize Paystack API (assuming API keys are set in __init__.py)
 paystack = Paystack()
@@ -18,12 +19,24 @@ paystack = Paystack()
 def home_page():
     return render_template('home.html')
 
+@app.route('/search')
+def search():
+    query = request.args.get('q')  # 'q' is the name of the search input field
+    results = []
+    
+    if query:  # If there is a search term, perform the search
+        # Search for items where the name matches the query (case insensitive)
+        results = Item.query.filter(Item.name.ilike(f'%{query}%')).all()
+
+    return render_template('search_result.html', query=query, results=results)
+
 # Shop page route (requires login)
 @app.route('/shop', methods=['GET', 'POST'])
-@login_required
 def shop_page():
-    items = Item.query.filter_by(owner=None)
-    owned_items = Item.query.filter_by(owner=current_user.id)
+    items=Item.query.all()
+    owned_items = []
+    if current_user.is_authenticated:
+        owned_items = Item.query.filter_by(owner=current_user.id).all()
     return render_template('shop.html', items=items, owned_items=owned_items)
 
 # Add item to cart route
@@ -58,7 +71,11 @@ def checkout():
 @app.route('/initiate_payment', methods=['POST'])
 @login_required
 def initiate_payment():
-    item_id = request.form.get('item_id')
+    item_data = request.get_json()
+    if not item_data:
+        return jsonify({'status': 'error', 'message': 'No data provided'}), 400
+
+    item_id = item_data.get('item_id')
     if item_id:
         item = Item.query.get_or_404(item_id)
         total_amount = item.price * 100  # Convert to kobo
@@ -77,21 +94,28 @@ def initiate_payment():
         )
         
         if response['status']:
-            # Store the reference and item_id (if any) in the session for verification later
+            # Store the reference and item_id (if applicable) in the session
             session['payment_reference'] = reference
             if item_id:
                 session['payment_item_id'] = item_id
-            return jsonify({'status': 'success', 'authorization_url': response['data']['authorization_url']})
+            
+            # Return the necessary data to the frontend
+            return jsonify({
+                'status': 'success',
+                'authorization_url': response['data']['authorization_url'],
+                'reference': reference,
+                'amount': total_amount,
+                'email': current_user.email_address
+            })
         else:
             return jsonify({'status': 'error', 'message': 'Failed to initiate payment'}), 400
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
-# Payment callback route
 @app.route('/payment_callback')
 @login_required
 def payment_callback():
-    reference = session.pop('payment_reference', None)
+    reference = request.args.get('reference') or session.pop('payment_reference', None)
     item_id = session.pop('payment_item_id', None)
     if not reference:
         flash("No payment reference found.", category='danger')

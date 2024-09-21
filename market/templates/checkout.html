@@ -1,36 +1,25 @@
 {% extends 'base.html' %}
-<!-- Extends the base template 'base.html' -->
 
 {% block title %}
-    Checkout - ELV Emporium
+Checkout - ELV Emporium
 {% endblock %}
-<!-- Sets the title of the page as "Checkout - ELV Emporium" -->
 
 {% block content %}
 <div class="container mt-5">
     <h1>Checkout</h1>
-    <!-- Main container for the checkout page with a heading "Checkout" -->
 
     <div class="row">
-        <!-- Bootstrap row for layout -->
-
         <div class="col-md-8">
-            <!-- Left column occupying 8 columns of grid -->
             <div class="card">
                 <div class="card-header">
                     <h3>Your Purchase</h3>
-                    <!-- Card header displaying "Your Purchase" -->
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
-                        <!-- List of purchased items -->
                         {% for item in items %}
-                        <!-- Loops through each item in the 'items' array -->
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             {{ item.name }}
-                            <!-- Displays the name of each item -->
                             <span class="badge badge-primary badge-pill">₦{{ item.price }}</span>
-                            <!-- Displays the price of the item with a badge -->
                         </li>
                         {% endfor %}
                     </ul>
@@ -39,73 +28,99 @@
         </div>
 
         <div class="col-md-4">
-            <!-- Right column occupying 4 columns of grid -->
             <div class="card">
                 <div class="card-header">
                     <h3>Order Summary</h3>
-                    <!-- Card header displaying "Order Summary" -->
                 </div>
                 <div class="card-body">
                     <p>Total: ₦{{ total }}</p>
-                    <!-- Displays the total amount -->
                     <button id="payButton" class="btn btn-primary btn-block">Pay with Paystack</button>
-                    <!-- Button to initiate Paystack payment -->
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Including Paystack's inline.js library to handle payments -->
 <script src="https://js.paystack.co/v1/inline.js"></script>
 
 <script>
-    document.getElementById('payButton').addEventListener('click', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const payButton = document.getElementById('payButton');
-        payButton.disabled = true; // Disable button to prevent multiple clicks during processing
+        if (!payButton) {
+            console.error('Pay button not found');
+            return;
+        }
 
-        const itemData = JSON.parse(document.getElementById('itemData').textContent);
-        // Parse item data (either one or multiple items)
+        payButton.addEventListener('click', function () {
+            console.log('Pay button clicked');
+            payButton.disabled = true;
 
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        // Fetch the CSRF token from the meta tag for security
-
-        fetch('{{ url_for("initiate_payment") }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken
-            },
-            body: JSON.stringify(itemData)
-            // Sends the item data to the initiate_payment route via a POST request
-        })
-        .then(response => response.json())
-        .then(data => {
-            payButton.disabled = false; // Re-enable button after receiving response
-            if (data.status === 'success') {
-                window.location.href = data.authorization_url;
-                // Redirect to Paystack's authorization page if payment initiation is successful
-            } else {
-                alert('Failed to initiate payment. Please try again.');
-                // Display an error message if payment initiation fails
+            const itemDataElement = document.getElementById('itemData');
+            if (!itemDataElement) {
+                console.error('Item data element not found');
+                payButton.disabled = false;
+                return;
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again.');
-            payButton.disabled = false; // Re-enable button if an error occurs
+
+            let itemData;
+            try {
+                itemData = JSON.parse(itemDataElement.textContent.trim());
+            } catch (error) {
+                console.error('Failed to parse item data:', error);
+                alert('An error occurred. Please try again.');
+                payButton.disabled = false;
+                return;
+            }
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]');
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                alert('An error occurred. Please try again.');
+                payButton.disabled = false;
+                return;
+            }
+
+            fetch('{{ url_for("initiate_payment") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify(itemData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    window.location.href = data.authorization_url;
+                } else {
+                    alert('Failed to initiate payment. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+                payButton.disabled = false;
+            });
+            
         });
     });
+
 </script>
 
-<!-- Script for passing item data in JSON format to the backend -->
 <script type="application/json" id="itemData">
     {% if items|length == 1 %}
-        {"item_id": {{ items[0].id }}}
-        <!-- If there's only one item, pass its ID -->
+        {"item_id": "{{ items[0].id }}"}
     {% else %}
-        {"items": [{% for item in items %}{{ item.id }}{% if not loop.last %},{% endif %}{% endfor %}]}
-        <!-- If there are multiple items, pass their IDs in a list -->
+        {"items": [
+            {% for item in items %}
+                "{{ item.id }}"{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        ]}
     {% endif %}
 </script>
 

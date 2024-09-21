@@ -49,8 +49,9 @@ class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False, unique=True)
     category = db.Column(db.String(30), nullable=False)
-    price = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Integer, nullable=True)
     owner = db.Column(db.Integer, db.ForeignKey('user.id'))
+    image_filename = db.Column(db.String(100), nullable=False, default='default_image.jpg')
 
     # String representation of the Item object
     def __repr__(self):

@@ -37,6 +37,9 @@
         background: #f0f0f0;
         box-shadow: inset 20px 20px 60px #cccccc, inset -20px -20px 60px #ffffff;
         color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     /* Custom button with neumorphic design */
@@ -64,6 +67,12 @@
         font-weight: 700;
         margin-bottom: 2rem;
         color: #2a2a2a;
+    }
+
+    /* Section image */
+    .section-title-img {
+        width: 800px;
+        height: auto;
     }
 
     /* Styling for feature icons */
@@ -104,13 +113,7 @@
         <div class="col-md-8">
             <div class="neumorphic-inset p-5">
                 {# Neumorphic inset style for this section #}
-                <h2 class="section-title text-center mb-4">Quality & Innovation</h2>
-                {# Section title for "Quality & Innovation" #}
-                <p class="lead text-center">
-                    Finding quality Extra-Low Voltage gadgets can be challenging. 
-                    Discover gadgets designed to make your life easier and safer.
-                </p>
-                {# Brief paragraph explaining the product quality #}
+                <img class="section-title-img" src="{{ url_for('static', filename='images/cctv-2417559_1280.jpg') }}" alt="CCTV Cover Image">
             </div>
         </div>
     </div>
@@ -119,23 +122,20 @@
         {# Row for the features section #}
         <div class="col-md-4 mb-4">
             <div class="neumorphic p-4 h-100">
-                {# Neumorphic card for the first feature #}
-                <i class="fas fa-tools feature-icon" style="color: #00B5AD;"></i>
-                {# Tools icon for "Expert Installation" feature #}
-                <h3 class="h5 mb-3">Expert Installation</h3>
+                <!-- <i class="fas fa-tools feature-icon" style="color: #00B5AD;"></i> -->
+                <h3 class="h4 mb-3" style="text-align: center;"><b>Advanced Security Solutions</b> </h3>
                 {# Feature title #}
-                <p>Book a professional installation for your purchases directly through our platform.</p>
+                <p>We offer advanced security solutions for residential, commercial and industrial applications. Our product range includes CCTV & intrusion alarm systems, access control, smart home automation, video wall displays and much more. </p>
                 {# Feature description #}
             </div>
         </div>
         <div class="col-md-4 mb-4">
             <div class="neumorphic p-4 h-100">
                 {# Neumorphic card for the second feature #}
-                <i class="fas fa-headset feature-icon" style="color: #00B5AD;"></i>
-                {# Headset icon for "Customer Support" feature #}
-                <h3 class="h5 mb-3">Customer Support</h3>
+                <!-- <i class="fas fa-headset feature-icon" style="color: #00B5AD;"></i> -->
+                <h3 class="h4 mb-3" style="text-align: center;"><b>Integrated Solutions</b></h3>
                 {# Feature title #}
-                <p>Our team is here to assist you with any inquiries or issues you may have.</p>
+                <p>We integrate security and automation systems with video walls and other audiovisual (AV) technologies to help your business become more efficient, secure and scalable. We offer a complete range of solutions to meet all your project needs, including new construction, renovation projects, retrofitting projects, and more.</p>
                 {# Feature description #}
             </div>
         </div>
@@ -172,14 +172,28 @@
         </div>
     </div>
 
+    
+
+    <div class="row justify-content-center mt-5">
+        {# Final call-to-action section #}
+        <div class="col-md-8 text-center">
+            <i class="far fa-calendar-alt fa-3x mb-4" style="color: #00B5AD;"></i>
+            {# Globe icon for the global transformation message #}
+            <p class="lead" style="color: #4a4a4a;">We Offer Optional Installation Services Anywhere in Lagos, You Can Book Via Email or Message Us Via Whatsapp.</p>
+            <a href="mailto:neche.bless@gmail.com" class="btn btn-outline-primary btn-lg btn-neumorphic px-5 py-3 mt-3">
+                <i class="fas fa-envelope me-2"></i>Book via Email
+            </a>
+            <a href="https://wa.me/2349069942948" class="btn btn-outline-primary btn-lg btn-neumorphic px-5 py-3 mt-3">
+                <i class="fab fa-whatsapp me-2"></i>+2349069942948
+            </a>
+        </div>
+    </div>
+
     <div class="row justify-content-center mt-5">
         {# Final call-to-action section #}
         <div class="col-md-8 text-center">
             <i class="fas fa-globe-africa fa-3x mb-4" style="color: #00B5AD;"></i>
             {# Globe icon for the global transformation message #}
-            <p class="lead" style="color: #4a4a4a;">
-               
-
             <p class="lead" style="color: #4a4a4a;">Join us in transforming the availability of advanced technology across Nigeria</p>
             <a href="{{ url_for('shop_page') }}" class="btn btn-outline-primary btn-lg btn-neumorphic px-5 py-3 mt-3">
                 <i class="fas fa-shopping-basket me-2"></i>Start Shopping Now

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+   {% block content %}
+   <h2>Search Results for "{{ query }}"</h2>
+   {% if results %}
+     <ul>
+     {% for result in results %}
+      <li>{{ item.name }} - {{ item.category }} - ${{ item.price }}</li>
+     {% endfor %}
+     </ul>
+   {% else %}
+     <p>No results found for "{{ query }}".</p>
+   {% endif %}
+{% endblock %}
